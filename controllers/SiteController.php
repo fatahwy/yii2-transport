@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Trs;
 
 class SiteController extends Controller
 {
@@ -61,8 +62,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = "dashboard";
-        return $this->render('index');
+        $model = new Trs();
+
+        return $this->render('index', [
+            'model' => $model,
+        ]);
     }
 
     /**

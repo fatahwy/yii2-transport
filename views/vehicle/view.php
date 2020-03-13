@@ -7,15 +7,12 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Vehicle */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Vehicles', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Armada', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="vehicle-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
+    <p class="float-right">
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -25,16 +22,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'name',
             'owner',
             'phone',
             'seat',
-            'status',
+            'status:boolean',
         ],
     ]) ?>
 

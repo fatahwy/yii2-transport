@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\components\AdminController;
 use Yii;
 use app\models\Trs;
 use yii\data\ActiveDataProvider;
@@ -12,27 +13,9 @@ use yii\filters\VerbFilter;
 /**
  * TrsController implements the CRUD actions for Trs model.
  */
-class TrsController extends Controller
+class TrsController extends AdminController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
 
-    /**
-     * Lists all Trs models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([

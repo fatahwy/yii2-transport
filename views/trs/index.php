@@ -6,16 +6,12 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Trs';
+$this->title = 'Pesanan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="trs-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Trs', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php Pjax::begin(); ?>
 
@@ -24,7 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'name',
             'phone',
             'address',
@@ -32,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'status',
             //'idvehicle',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'app\components\ButtonActionColumn'],
         ],
     ]); ?>
 

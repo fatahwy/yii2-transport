@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Email */
 
-$this->title = 'Create Email';
-$this->params['breadcrumbs'][] = ['label' => 'Emails', 'url' => ['index']];
+$this->title = 'Tambah Email';
+$this->params['breadcrumbs'][] = ['label' => 'Email', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="email-create">

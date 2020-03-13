@@ -13,29 +13,21 @@ use yii\web\ForbiddenHttpException;
 /**
  * Default controller for the `admin` module
  */
-class AdminController extends Controller {
-
-    public $layout = "main.php";
-
-    public function behaviors() {
+class AdminController extends Controller
+{
+    public function behaviors()
+    {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'ruleConfig' => [
-                    'class' => AccessRule::className(),
-                ],
                 'rules' => [
                     [
-                        'controllers' => ['admin/booking', 'admin/report', 'admin/account'],
                         'allow' => true,
-                    ],
-                    [
-                        'actions' => ['pdfboarding'],
-                        'allow' => true,
+                        // 'roles' => ['@'],
                     ],
                 ],
-                'denyCallback' => function($rule, $action) {
-                    if (Yii::$app->user->isGuest()) {
+                'denyCallback' => function ($rule, $action) {
+                    if (!Yii::$app->user->isGuest) {
                         throw new ForbiddenHttpException('Anda tidak memiliki cukup akses untuk halaman ini!');
                     } else {
                         return $this->redirect(['site/login']);
@@ -51,5 +43,4 @@ class AdminController extends Controller {
             ],
         ];
     }
-
 }

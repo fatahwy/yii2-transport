@@ -2,32 +2,18 @@
 
 namespace app\controllers;
 
+use app\components\AdminController;
 use Yii;
 use app\models\Email;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * EmailController implements the CRUD actions for Email model.
  */
-class EmailController extends Controller
+class EmailController extends AdminController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
 
     /**
      * Lists all Email models.

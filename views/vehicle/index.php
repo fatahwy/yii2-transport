@@ -1,21 +1,19 @@
 <?php
 
-use yii\helpers\Html;
+use yii\bootstrap\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use rmrevin\yii\fontawesome\FA;
+
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Vehicles';
+$this->title = 'Armada';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="vehicle-index">
-
+    <?= Html::a(FA::icon('plus') . ' ' . $this->title, ['create'], ['class' => 'btn btn-success float-right']) ?>
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Vehicle', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php Pjax::begin(); ?>
 
@@ -24,14 +22,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'name',
             'owner',
             'phone',
             'seat',
             //'status',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'app\components\ButtonActionColumn'],
         ],
     ]); ?>
 

@@ -7,15 +7,12 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Email */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Emails', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Email', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="email-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
+    <p class="float-right">
         <?= Html::a('Update', ['update', 'id' => $model->idemail], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->idemail], [
             'class' => 'btn btn-danger',
@@ -25,14 +22,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idemail:email',
             'name',
             'email:email',
-            'status',
+            'status:boolean',
         ],
     ]) ?>
 

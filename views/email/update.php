@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Email */
 
 $this->title = 'Update Email: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Emails', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Email', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->idemail]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

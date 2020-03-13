@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\components\AdminController;
 use Yii;
 use app\models\Vehicle;
 use yii\data\ActiveDataProvider;
@@ -12,27 +13,9 @@ use yii\filters\VerbFilter;
 /**
  * VehicleController implements the CRUD actions for Vehicle model.
  */
-class VehicleController extends Controller
+class VehicleController extends AdminController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * Lists all Vehicle models.
-     * @return mixed
-     */
+ 
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([

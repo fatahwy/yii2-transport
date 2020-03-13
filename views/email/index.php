@@ -3,19 +3,17 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use rmrevin\yii\fontawesome\FA;
+
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Emails';
+$this->title = 'Email';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="email-index">
-
+    <?= Html::a(FA::icon('plus') . ' ' . $this->title, ['create'], ['class' => 'btn btn-success float-right']) ?>
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Email', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php Pjax::begin(); ?>
 
@@ -24,12 +22,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idemail:email',
             'name',
             'email:email',
             'status',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'app\components\ButtonActionColumn'],
         ],
     ]); ?>
 
