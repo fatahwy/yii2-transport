@@ -2,7 +2,10 @@
 
 namespace app\models;
 
-use Yii;
+use app\components\Helper;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "vehicle".
@@ -16,21 +19,19 @@ use Yii;
  *
  * @property Trs[] $trs
  */
-class Vehicle extends \yii\db\ActiveRecord
-{
+class Vehicle extends ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'vehicle';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['status'], 'integer'],
             [['name', 'owner', 'phone', 'seat'], 'string', 'max' => 45],
@@ -40,8 +41,7 @@ class Vehicle extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'name' => 'Name',
@@ -55,10 +55,17 @@ class Vehicle extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Trs]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getTrs()
-    {
+    public function getTrs() {
         return $this->hasMany(Trs::className(), ['idvehicle' => 'id']);
     }
+
+    public static function getList() {
+        $vehicles = Vehicle::find()
+                ->where(['status' => Helper::STAT_ACTIVE])
+                ->all();
+        return ArrayHelper::map($vehicles, 'id', 'name');
+    }
+
 }

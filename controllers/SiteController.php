@@ -2,22 +2,23 @@
 
 namespace app\controllers;
 
+use app\components\Helper;
+use app\models\LoginForm;
+use app\models\Trs;
+use app\models\Vehicle;
 use Yii;
+use yii\bootstrap4\Html;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
-use app\models\Trs;
 
-class SiteController extends Controller
-{
+class SiteController extends Controller {
+
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -42,15 +43,10 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function actions()
-    {
+    public function actions() {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
     }
@@ -60,12 +56,30 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
+        $req = Yii::$app->request;
         $model = new Trs();
+        $timedepart = Helper::getTimeDepart();
+        $vehicles = Vehicle::getList();
+
+        if ($model->load($req->post())) {
+            $model->status = Helper::STAT_PENDING;
+            $typesubmit = $req->post(Helper::BTN_SAVE);
+
+            if ($typesubmit == Helper::TYPE_PENDING) {
+                $model->startdate = $model->startdate . ' ' . $timedepart[$model->time];
+            }
+
+            if ($model->save()) {
+                Helper::flashSucceed('Terima kasih.\nPesanan berhasil disimpan.\nBeberapa saat lagi admin akan menghubungi anda');
+                return $this->refresh();
+            }
+            Helper::flashFailed(Html::errorSummary($model));
+        }
 
         return $this->render('index', [
-            'model' => $model,
+                    'model' => $model,
+                    'timedepart' => $timedepart,
         ]);
     }
 
@@ -74,8 +88,7 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionLogin()
-    {
+    public function actionLogin() {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -87,7 +100,7 @@ class SiteController extends Controller
 
         $model->password = '';
         return $this->render('login', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -96,29 +109,10 @@ class SiteController extends Controller
      *
      * @return Response
      */
-    public function actionLogout()
-    {
+    public function actionLogout() {
         Yii::$app->user->logout();
 
         return $this->goHome();
-    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -126,8 +120,8 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionAbout()
-    {
+    public function actionAbout() {
         return $this->render('about');
     }
+
 }

@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "trs".
@@ -11,31 +12,33 @@ use Yii;
  * @property string|null $name
  * @property string|null $phone
  * @property string|null $address
- * @property string|null $date
+ * @property string|null $startdate
+ * @property string|null $estarrival
  * @property string|null $status
  * @property int|null $idvehicle
  *
  * @property Vehicle $idvehicle0
  */
-class Trs extends \yii\db\ActiveRecord
-{
+class Trs extends ActiveRecord {
+
+    public $time;
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'trs';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['date'], 'safe'],
-            [['idvehicle'], 'integer'],
-            [['name', 'phone', 'address', 'status'], 'string', 'max' => 45],
+            [['startdate', 'estarrival', 'time'], 'safe'],
+            [['idvehicle', 'status'], 'integer'],
+            [['name', 'phone', 'date', 'time', 'address'], 'required'],
+            [['name', 'phone', 'address', 'charge'], 'string', 'max' => 45],
             [['idvehicle'], 'exist', 'skipOnError' => true, 'targetClass' => Vehicle::className(), 'targetAttribute' => ['idvehicle' => 'id']],
         ];
     }
@@ -43,26 +46,27 @@ class Trs extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'phone' => 'Phone',
-            'address' => 'Address',
-            'date' => 'Date',
+            'name' => 'Nama',
+            'phone' => 'No Telp/WA',
+            'address' => 'Alamat',
+            'time' => 'Jam Berangkat',
+            'startdate' => 'Tanggal Berangkat',
+            'estarrival' => 'Perkiraan Tiba',
             'status' => 'Status',
-            'idvehicle' => 'Idvehicle',
+            'idvehicle' => 'Kendaraan',
         ];
     }
 
     /**
      * Gets query for [[Idvehicle0]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getIdvehicle0()
-    {
+    public function getIdvehicle0() {
         return $this->hasOne(Vehicle::className(), ['id' => 'idvehicle']);
     }
+
 }
