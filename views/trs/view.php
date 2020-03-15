@@ -1,5 +1,6 @@
 <?php
 
+use app\components\Helper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -12,10 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="trs-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
+    <p class="float-right">
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -25,17 +23,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'name',
             'phone',
             'address',
-            'date',
-            'status',
-            'idvehicle',
+            'startdate',
+            'estarrival',
+            'charge',
+            'type',
+            // 'status',
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function($model) {
+                    return Helper::getStatusOrder($model->status);
+                }
+            ],
+            'idvehicle0.name',
         ],
     ]) ?>
 

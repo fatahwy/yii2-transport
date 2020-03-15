@@ -2,33 +2,20 @@
 
 namespace app\controllers;
 
+use app\components\AdminController;
+use app\components\Helper;
 use Yii;
 use app\models\Account;
+use yii\bootstrap4\Html;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * AccountController implements the CRUD actions for Account model.
  */
-class AccountController extends Controller
+class AccountController extends AdminController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
     /**
      * Lists all Account models.
      * @return mixed
@@ -86,9 +73,18 @@ class AccountController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->username = $model->oldAttributes['username'];
+            $model->password = trim($model->password) ? md5(trim($model->password)) : NULL;
+            $model->password_repeat = trim($model->password_repeat) ? md5(trim($model->password_repeat)) : NULL;
+
+            if($model->save()) {
+                Helper::flashSucceed('Berhasil Memperbarui Akun');
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            Helper::flashFailed(Html::errorSummary($model));
         }
+        $model->password = $model->password_repeat = NULL;
 
         return $this->render('update', [
             'model' => $model,

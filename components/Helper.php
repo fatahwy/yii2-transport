@@ -14,9 +14,23 @@ class Helper {
     const TYPE_TODAY = 'TODAY';
     const TYPE_VIP = 'VIP';
     const BTN_SAVE = 'BTN_SAVE';
+    const SCENARIO_CREATE = 'create';
 
     public static function getTimeDepart($id = NULL) {
         $list = [7 => '07:00', 13 => '13:00'];
+        if (isset($list[$id])) {
+            return $list[$id];
+        }
+        return $list;
+    }
+
+    public static function getTypeOrder($id = NULL) {
+        $list = [
+            self::TYPE_PENDING => self::TYPE_PENDING,
+            self::TYPE_TODAY => self::TYPE_TODAY,
+            self::TYPE_VIP => self::TYPE_VIP,
+        ];
+
         if (isset($list[$id])) {
             return $list[$id];
         }

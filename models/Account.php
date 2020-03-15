@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\components\Helper;
 use Yii;
 
 /**
@@ -15,6 +16,7 @@ use Yii;
  */
 class Account extends \yii\db\ActiveRecord
 {
+    public $password_repeat;
     /**
      * {@inheritdoc}
      */
@@ -29,11 +31,13 @@ class Account extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username'], 'required'],
+            [['username', 'password', 'password_repeat'], 'required'],
             [['status'], 'integer'],
             [['lastlogin'], 'safe'],
-            [['username', 'password'], 'string', 'max' => 45],
+            [['username'], 'string', 'max' => 45],
+            [['password', 'password_repeat'], 'string', 'min' => 5, 'max' => 45],
             [['username'], 'unique'],
+            ['password_repeat', 'compare', 'compareAttribute' => 'password'],
         ];
     }
 
@@ -46,8 +50,8 @@ class Account extends \yii\db\ActiveRecord
             'id' => 'ID',
             'username' => 'Username',
             'password' => 'Password',
-            'status' => 'Status',
-            'lastlogin' => 'Lastlogin',
+            'status' => 'Aktif',
+            'lastlogin' => 'Login Terakhir',
         ];
     }
 }

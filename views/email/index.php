@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'name',
             'email:email',
-            'status',
+            'status:boolean',
 
             ['class' => 'app\components\ButtonActionColumn'],
         ],

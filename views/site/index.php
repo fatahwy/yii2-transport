@@ -54,7 +54,7 @@ $this->title = Yii::$app->name;
                                 ?>
                             </div>
                             <div class="col-md-6">
-                                <?= $form->field($model, 'time')->dropDownList([NULL => 'Jam Berangkat'] + $timedepart) ?>
+                                <?= $form->field($model, 'time')->dropDownList([NULL => '-- Pilih Jam Berangkat --'] + $timedepart) ?>
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@ $this->title = Yii::$app->name;
                 </div>
 
                 <div class="form-group">
-                    <?= Html::submitButton('Save', ['class' => 'btn btn-success', 'name' => Helper::BTN_SAVE, 'value' => Helper::TYPE_PENDING]) ?>
+                    <?= Html::submitButton('Simpan', ['class' => 'btn btn-success', 'name' => Helper::BTN_SAVE, 'value' => Helper::TYPE_PENDING]) ?>
                 </div>
 
                 <?php ActiveForm::end(); ?>
@@ -83,20 +83,20 @@ $this->title = Yii::$app->name;
 
                 <div class="row">
                     <div class="col-md-6">
-                        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                        <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'id' => 'today-name']) ?>
 
-                        <?= $form->field($model, 'idvehicle')->dropDownList([NULL => 'Kendaraan'] + $vehicles) ?>
+                        <?= $form->field($model, 'idvehicle')->dropDownList([NULL => '-- Pilih Kendaraan --'] + $vehicles, ['id' => 'today-idvehicle']) ?>
                     </div>
 
                     <div class="col-md-6">
-                        <?= $form->field($model, 'phone')->textInput(['type' => 'number']) ?>
+                        <?= $form->field($model, 'phone')->textInput(['type' => 'number', 'id' => 'today-phone']) ?>
 
-                        <?= $form->field($model, 'address')->textarea() ?>
+                        <?= $form->field($model, 'address')->textarea(['id' => 'today-address']) ?>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <?= Html::submitButton('Save', ['class' => 'btn btn-success', 'name' => Helper::BTN_SAVE, 'value' => Helper::TYPE_TODAY]) ?>
+                    <?= Html::submitButton('Simpan', ['class' => 'btn btn-success', 'name' => Helper::BTN_SAVE, 'value' => Helper::TYPE_TODAY]) ?>
                 </div>
 
                 <?php ActiveForm::end(); ?>
@@ -111,11 +111,11 @@ $this->title = Yii::$app->name;
 
                 <div class="row">
                     <div class="col-md-6">
-                        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                        <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'id' => 'vip-name']) ?>
 
                         <?=
                         $form->field($model, 'startdate')->widget(DatePicker::classname(), [
-                            'options' => ['placeholder' => 'Tanggal Berangkat'],
+                            'options' => ['placeholder' => 'Tanggal Berangkat', 'id' => 'vip-startdate'],
                             'language' => 'id',
                             'type' => DatePicker::TYPE_INPUT,
                             'pluginOptions' => [
@@ -126,18 +126,18 @@ $this->title = Yii::$app->name;
                         ]);
                         ?>
 
-                        <?= $form->field($model, 'idvehicle')->dropDownList([NULL => 'Kendaraan'] + $vehicles) ?>
+                        <?= $form->field($model, 'idvehicle')->dropDownList([NULL => '-- Pilih Kendaraan --'] + $vehicles) ?>
                     </div>
 
                     <div class="col-md-6">
-                        <?= $form->field($model, 'phone')->textInput(['type' => 'number']) ?>
+                        <?= $form->field($model, 'phone')->textInput(['type' => 'number', 'id' => 'vip-phone']) ?>
 
-                        <?= $form->field($model, 'address')->textarea() ?>
+                        <?= $form->field($model, 'address')->textarea(['id' => 'vip-address']) ?>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <?= Html::submitButton('Save', ['class' => 'btn btn-success', 'name' => Helper::BTN_SAVE, 'value' => Helper::TYPE_VIP]) ?>
+                    <?= Html::submitButton('Simpan', ['class' => 'btn btn-success', 'name' => Helper::BTN_SAVE, 'value' => Helper::TYPE_VIP]) ?>
                 </div>
 
                 <?php ActiveForm::end(); ?>

@@ -41,9 +41,9 @@ class Email extends \yii\db\ActiveRecord
     {
         return [
             'idemail' => 'Idemail',
-            'name' => 'Name',
-            'email' => 'Email',
-            'status' => 'Status',
+            'name' => 'Nama',
+            'email' => 'E-Mail',
+            'status' => 'Aktif',
         ];
     }
 }

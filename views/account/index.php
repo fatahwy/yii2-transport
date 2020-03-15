@@ -27,8 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'username',
-            'password',
-            'status',
+            'status:boolean',
             'lastlogin',
             ['class' => 'app\components\ButtonActionColumn'],
         ],

@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'phone',
             'address',
-            'date',
+            'startdate',
             //'status',
             //'idvehicle',
 

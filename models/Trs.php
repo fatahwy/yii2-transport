@@ -37,8 +37,8 @@ class Trs extends ActiveRecord {
         return [
             [['startdate', 'estarrival', 'time'], 'safe'],
             [['idvehicle', 'status'], 'integer'],
-            [['name', 'phone', 'date', 'time', 'address'], 'required'],
-            [['name', 'phone', 'address', 'charge'], 'string', 'max' => 45],
+            [['name', 'phone', 'time', 'address'], 'required'],
+            [['name', 'phone', 'address', 'charge', 'type'], 'string', 'max' => 45],
             [['idvehicle'], 'exist', 'skipOnError' => true, 'targetClass' => Vehicle::className(), 'targetAttribute' => ['idvehicle' => 'id']],
         ];
     }
@@ -55,7 +55,9 @@ class Trs extends ActiveRecord {
             'time' => 'Jam Berangkat',
             'startdate' => 'Tanggal Berangkat',
             'estarrival' => 'Perkiraan Tiba',
-            'status' => 'Status',
+            'charge' => 'Harga',
+            'status' => 'Status Order',
+            'type' => 'Tipe',
             'idvehicle' => 'Kendaraan',
         ];
     }

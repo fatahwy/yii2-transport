@@ -62,7 +62,7 @@ class Vehicle extends ActiveRecord {
     }
 
     public static function getList() {
-        $vehicles = Vehicle::find()
+        $vehicles = self::find()
                 ->where(['status' => Helper::STAT_ACTIVE])
                 ->all();
         return ArrayHelper::map($vehicles, 'id', 'name');
