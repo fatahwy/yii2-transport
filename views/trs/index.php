@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'phone',
             'address',
             'startdate',
-            //'status',
+            'type',
             //'idvehicle',
 
             ['class' => 'app\components\ButtonActionColumn'],

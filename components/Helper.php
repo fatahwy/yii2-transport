@@ -16,6 +16,10 @@ class Helper {
     const BTN_SAVE = 'BTN_SAVE';
     const SCENARIO_CREATE = 'create';
 
+    public static function now() {
+        return date('Y-m-d H:i:s');
+    }
+
     public static function getTimeDepart($id = NULL) {
         $list = [7 => '07:00', 13 => '13:00'];
         if (isset($list[$id])) {

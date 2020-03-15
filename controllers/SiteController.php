@@ -65,6 +65,7 @@ class SiteController extends Controller
         $model = new Trs();
         $timedepart = Helper::getTimeDepart();
         $vehicles = Vehicle::getList();
+        $typesubmit = Helper::TYPE_PENDING;
 
         if ($model->load($req->post())) {
             $model->status = Helper::STAT_PENDING;
@@ -73,14 +74,18 @@ class SiteController extends Controller
             if (in_array($typesubmit, Helper::getTypeOrder())) {
                 if ($typesubmit == Helper::TYPE_PENDING) {
                     $model->startdate = $model->startdate . ' ' . $timedepart[$model->time];
+                } else {
+                    $model->startdate = Helper::now();
+                    $model->time = key($timedepart);
                 }
                 $model->type = $typesubmit;
             }
 
             if ($model->save()) {
-                Helper::flashSucceed('Terima kasih.\nPesanan berhasil disimpan.\nBeberapa saat lagi admin akan menghubungi anda');
+                Helper::flashSucceed('Terima kasih. <br>Pesanan berhasil disimpan.<br>Beberapa saat lagi admin akan menghubungi anda');
                 return $this->refresh();
             }
+
             Helper::flashFailed(Html::errorSummary($model));
         }
 
@@ -88,6 +93,7 @@ class SiteController extends Controller
             'model' => $model,
             'timedepart' => $timedepart,
             'vehicles' => $vehicles,
+            'typesubmit' => $typesubmit,
         ]);
     }
 

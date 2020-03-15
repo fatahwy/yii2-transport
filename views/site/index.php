@@ -8,6 +8,15 @@ use yii\bootstrap4\Html;
 use yii\web\View;
 
 $this->title = Yii::$app->name;
+$ispending = $typesubmit == Helper::TYPE_PENDING;
+$istoday = $typesubmit == Helper::TYPE_TODAY;
+$isvip = $typesubmit == Helper::TYPE_VIP;
+$pendingtab = $ispending ? 'active' : '';
+$todaytab = $istoday ? 'active' : '';
+$viptab = $isvip ? 'active' : '';
+$pendingbody = $pendingtab ?: 'fade';
+$todaybody = $todaytab ?: 'fade';
+$vipbody = $viptab ?: 'fade';
 ?>
 
 <div class="container">
@@ -16,19 +25,19 @@ $this->title = Yii::$app->name;
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#home">Order T1</a>
+            <a class="nav-link <?= $pendingtab  ?>" data-toggle="tab" href="#home">Order T1</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#menu1">Hari Ini</a>
+            <a class="nav-link <?= $todaytab ?>" data-toggle="tab" href="#menu1">Hari Ini</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#menu2">VIP</a>
+            <a class="nav-link <?= $viptab ?>" data-toggle="tab" href="#menu2">VIP</a>
         </li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div id="home" class="container tab-pane active"><br>
+        <div id="home" class="container tab-pane <?= $pendingbody ?>"><br>
             <h3>Order T1</h3>
             <div class="trs-form">
 
@@ -41,16 +50,16 @@ $this->title = Yii::$app->name;
                         <div class="row">
                             <div class="col-md-6">
                                 <?=
-                                $form->field($model, 'startdate')->widget(DatePicker::classname(), [
-                                    'options' => ['placeholder' => 'Tanggal Berangkat'],
-                                    'language' => 'id',
-                                    'type' => DatePicker::TYPE_INPUT,
-                                    'pluginOptions' => [
-                                        'startDate' => date("Y-m-d", strtotime('+2 days')),
-                                        'format' => 'yyyy-mm-dd',
-                                        'autoclose' => true
-                                    ]
-                                ]);
+                                    $form->field($model, 'startdate')->widget(DatePicker::classname(), [
+                                        'options' => ['placeholder' => 'Tanggal Berangkat'],
+                                        'language' => 'id',
+                                        'type' => DatePicker::TYPE_INPUT,
+                                        'pluginOptions' => [
+                                            'startDate' => date("Y-m-d", strtotime('+2 days')),
+                                            'format' => 'yyyy-mm-dd',
+                                            'autoclose' => true
+                                        ]
+                                    ]);
                                 ?>
                             </div>
                             <div class="col-md-6">
@@ -75,7 +84,7 @@ $this->title = Yii::$app->name;
             </div>
 
         </div>
-        <div id="menu1" class="container tab-pane fade"><br>
+        <div id="menu1" class="container tab-pane <?= $todaybody ?>"><br>
             <h3>Hari Ini</h3>
             <div class="trs-form">
 
@@ -103,7 +112,7 @@ $this->title = Yii::$app->name;
 
             </div>
         </div>
-        <div id="menu2" class="container tab-pane fade"><br>
+        <div id="menu2" class="container tab-pane <?= $vipbody ?>"><br>
             <h3>VIP</h3>
             <div class="trs-form">
 
@@ -114,16 +123,16 @@ $this->title = Yii::$app->name;
                         <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'id' => 'vip-name']) ?>
 
                         <?=
-                        $form->field($model, 'startdate')->widget(DatePicker::classname(), [
-                            'options' => ['placeholder' => 'Tanggal Berangkat', 'id' => 'vip-startdate'],
-                            'language' => 'id',
-                            'type' => DatePicker::TYPE_INPUT,
-                            'pluginOptions' => [
-                                'startDate' => date("Y-m-d"),
-                                'format' => 'yyyy-mm-dd',
-                                'autoclose' => true
-                            ]
-                        ]);
+                            $form->field($model, 'startdate')->widget(DatePicker::classname(), [
+                                'options' => ['placeholder' => 'Tanggal Berangkat', 'id' => 'vip-startdate'],
+                                'language' => 'id',
+                                'type' => DatePicker::TYPE_INPUT,
+                                'pluginOptions' => [
+                                    'startDate' => date("Y-m-d"),
+                                    'format' => 'yyyy-mm-dd',
+                                    'autoclose' => true
+                                ]
+                            ]);
                         ?>
 
                         <?= $form->field($model, 'idvehicle')->dropDownList([NULL => '-- Pilih Kendaraan --'] + $vehicles) ?>
